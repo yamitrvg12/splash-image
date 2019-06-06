@@ -4,7 +4,7 @@ import './styles.css';
 
 class ImageGrid extends Component {
 	state = {
-		images: []
+		images: [],
 	}
 
 	render() {

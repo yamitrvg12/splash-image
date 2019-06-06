@@ -5,16 +5,10 @@ import { connect } from 'react-redux';
 import Header from './components/Header';
 import ImageGrid from './components/ImageGrid';
 
-const App = props => (
+const App = () => (
 	<div className="App">
 		<Header />
 		<ImageGrid />
-		<div className="Age-label">
-			your age:
-			<span>{props.age}</span>
-		</div>
-		<button onClick={props.onAgeUp}>Age UP</button>
-		<button onClick={props.onAgeDown}>Age Down</button>
 	</div>
 );
 
