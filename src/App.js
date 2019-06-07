@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 import Header from './components/Header';
 import ImageGrid from './components/ImageGrid';
@@ -12,6 +12,9 @@ const App = () => (
 	</div>
 );
 
+export default App;
+
+/*
 const mapStateToProps = state => ({
 	age: state.age,
 });
@@ -25,3 +28,4 @@ export default connect(
 	mapStateToProps,
 	mapDispachToProps,
 )(App);
+*/
