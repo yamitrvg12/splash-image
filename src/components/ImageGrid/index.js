@@ -1,36 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { loadImages } from '../../actions';
+import Button from '../Button';
 
 import './styles.css';
-
-const key = '5f96323678d05ff0c4eb264ef184556868e303b32a2db88ecbf15746e6f25e02';
 
 class ImageGrid extends Component {
 	static get propTypes() {
 		return {
 			loadImagesFun: PropTypes.func.isRequired,
+			images: PropTypes.arrayOf(PropTypes.object).isRequired,
+			error: PropTypes.string,
+			isLoading: PropTypes.bool,
 		};
 	}
 
-	state = {
-		images: [],
-	}
-
 	componentDidMount() {
-		axios.get(`https://api.unsplash.com/photos/?client_id=${key}&per_page=28`)
-			.then((response) => {
-				this.setState({
-					images: response.data,
-				});
-			});
+		const { loadImagesFun } = this.props;
+
+		loadImagesFun();
 	}
 
 	render() {
-		const { images } = this.state;
-		const { loadImagesFun } = this.props;
+		const {
+			loadImagesFun,
+			images,
+			error,
+			isLoading,
+		} = this.props;
 		return (
 			<div className="content">
 				<section className="grid">
@@ -39,12 +37,20 @@ class ImageGrid extends Component {
 							<img src={image.urls.small} alt={image.user.username} />
 						</div>
 					))}
-					<button type="button" onClick={loadImagesFun}>Load Images...</button>
+					<Button loading={isLoading} onClick={() => !isLoading && loadImagesFun()}>
+						Load more...
+					</Button>
 				</section>
+				{error && <div className="error">{JSON.stringify(error)}</div>}
 			</div>
 		);
 	}
 }
+
+ImageGrid.defaultProps = {
+	error: null,
+	isLoading: false,
+};
 
 const mapStateToProps = ({ isLoading, images, error }) => ({
 	isLoading,

@@ -15,7 +15,10 @@ module.exports = {
 		"indent": [2, "tab"],
 		"no-tabs": 0,
 		"react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
-    }
+	},
+	"globals": {
+		"fetch": false,
+	}
 	// "parser": "babel-eslint",
 	// "env": {
 	// 	"es6": true,
