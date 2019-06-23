@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
-// import { connect } from 'react-redux';
+import { Provider } from 'react-redux';
+
+import configureStore from './store';
 
 import Header from './components/Header';
 import ImageGrid from './components/ImageGrid';
 
+const store = configureStore();
+
 const App = () => (
-	<div className="App">
-		<Header />
-		<ImageGrid />
-	</div>
+	<Provider store={store} className="App">
+		<Fragment>
+			<Header />
+			<ImageGrid />
+		</Fragment>
+	</Provider>
 );
 
 export default App;
