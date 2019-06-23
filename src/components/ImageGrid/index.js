@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { loadImages } from '../../actions';
 
 import './styles.css';
 
 const key = '5f96323678d05ff0c4eb264ef184556868e303b32a2db88ecbf15746e6f25e02';
 
 class ImageGrid extends Component {
+	static get propTypes() {
+		return {
+			loadImagesFun: PropTypes.func.isRequired,
+		};
+	}
+
 	state = {
 		images: [],
 	}
@@ -22,6 +30,7 @@ class ImageGrid extends Component {
 
 	render() {
 		const { images } = this.state;
+		const { loadImagesFun } = this.props;
 		return (
 			<div className="content">
 				<section className="grid">
@@ -30,6 +39,7 @@ class ImageGrid extends Component {
 							<img src={image.urls.small} alt={image.user.username} />
 						</div>
 					))}
+					<button type="button" onClick={loadImagesFun}>Load Images...</button>
 				</section>
 			</div>
 		);
@@ -42,4 +52,8 @@ const mapStateToProps = ({ isLoading, images, error }) => ({
 	error,
 });
 
-export default connect(mapStateToProps, null)(ImageGrid);
+const mapDispatchToProps = dispatch => ({
+	loadImagesFun: () => dispatch(loadImages()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageGrid);

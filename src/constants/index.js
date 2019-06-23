@@ -4,4 +4,4 @@ const IMAGES = {
 	LOAD_FAIL: 'IMAGES_FAIL',
 };
 
-export default { IMAGES };
+export default IMAGES;
