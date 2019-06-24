@@ -4,13 +4,13 @@ import {
 	call,
 	put,
 } from 'redux-saga/effects';
-import IMAGES from '../constants';
-import fetchImages from '../api';
+import { IMAGES } from '../constants';
+import { fetchImages } from '../api';
 import { setImages, setError } from '../actions';
 
 // takeEvery: non blocking
 // take: blocking
-// call: call a function
+// call: blocking, call a function
 
 const getPage = state => state.nextPage;
 

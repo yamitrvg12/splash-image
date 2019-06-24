@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadImages } from '../../actions';
 import Button from '../Button';
+import Stats from '../Stats';
 
 import './styles.css';
 
@@ -13,6 +14,7 @@ class ImageGrid extends Component {
 			images: PropTypes.arrayOf(PropTypes.object).isRequired,
 			error: PropTypes.string,
 			isLoading: PropTypes.bool,
+			imageStats: PropTypes.shape(),
 		};
 	}
 
@@ -28,12 +30,14 @@ class ImageGrid extends Component {
 			images,
 			error,
 			isLoading,
+			imageStats,
 		} = this.props;
 		return (
 			<div className="content">
 				<section className="grid">
 					{images.map(image => (
 						<div key={image.id} className={`item item-${Math.ceil(image.height / image.width)}`}>
+							<Stats stats={imageStats[image.id]} />
 							<img src={image.urls.small} alt={image.user.username} />
 						</div>
 					))}
@@ -50,12 +54,16 @@ class ImageGrid extends Component {
 ImageGrid.defaultProps = {
 	error: null,
 	isLoading: false,
+	imageStats: {},
 };
 
-const mapStateToProps = ({ isLoading, images, error }) => ({
+const mapStateToProps = ({
+	isLoading, images, error, imageStats,
+}) => ({
 	isLoading,
 	images,
 	error,
+	imageStats,
 });
 
 const mapDispatchToProps = dispatch => ({
